@@ -1,6 +1,7 @@
 class TokenData {
-    constructor(token) {
+    constructor(token, time) {
         this.token = token
+        this.time = time
     }
 }
 

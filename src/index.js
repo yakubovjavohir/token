@@ -28,7 +28,6 @@ app.get("/token", (req, res)=>{
     res.render("token.ejs")
 })
 
-
 io.on("connection", (socket)=>{
     socket.on("key", async (data)=>{
         const readFile = await keyRepo.read()
@@ -36,7 +35,6 @@ io.on("connection", (socket)=>{
         readFile.forEach(element => {
             if (element.key === data) {
                     const token = new Token(data).generateToken()
-                    console.log(token);
                     socket.emit("token_id", token)
             } else {
                 socket.emit("key_not", {message : "key notog'ri!"})
@@ -45,8 +43,6 @@ io.on("connection", (socket)=>{
     })
 
     socket.on("token", (data)=>{
-        console.log(data);
-        
         const tokenData = {
             token : data,
             yasalganVaqt : Math.trunc(new Date().getTime()) 
